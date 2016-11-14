@@ -50,7 +50,7 @@ Opt = parsepv(Opt, varargin);
 % Data setup
 %--------------------
 
-EM = EM.sortbytrophic;
+EM = sortbytrophic(EM);
 G = EM.graph('oos', false, 'det', Opt.showdet);
 
 % Scale data if necessary
