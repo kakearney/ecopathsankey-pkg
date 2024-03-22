@@ -100,7 +100,7 @@ Json.nodes = struct('nodes', num2cell(idx), ...
 
 val = G.Edges.Weight;
 if min(val) < 0
-    val = (min(val)) + 0.01*diff(minmax(val));
+    val = (min(val)) + 0.01*(max(val(:)) - min(val(:)));
 end
     
 Json.links = struct('source', num2cell(findnode(G, G.Edges.EndNodes(:,1))'-1), ...
