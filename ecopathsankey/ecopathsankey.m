@@ -40,11 +40,16 @@ function Json = ecopathsankey(EM, file, varargin)
 % Parse inputs
 %--------------------
 
-Opt.linkscale = @(x) x;
-Opt.round = 0.1;
-Opt.showdet = false;
+p = inputParser;
+p.addParameter
 
-Opt = parsepv(Opt, varargin);
+
+p.addParameter('linkscale', @(x) x);
+p.addParameter('round', 0.1);
+p.addParameter('showdet', false);
+p.parse(varargin{:});
+
+Opt = p.Results;
 
 %--------------------
 % Data setup
@@ -100,7 +105,7 @@ Json.nodes = struct('nodes', num2cell(idx), ...
 
 val = G.Edges.Weight;
 if min(val) < 0
-    val = (min(val)) + 0.01*diff(minmax(val));
+    val = (min(val)) + 0.01*(max(val(:)) - min(val(:)));
 end
     
 Json.links = struct('source', num2cell(findnode(G, G.Edges.EndNodes(:,1))'-1), ...
